@@ -12,6 +12,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	auth "github.com/iden3/go-iden3-auth/v2"
+	"github.com/rs/cors"
 
 	"github.com/iden3/go-iden3-auth/v2/loaders"
 	"github.com/iden3/go-iden3-auth/v2/pubsignals"
@@ -20,10 +21,21 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/api/sign-in", GetAuthRequest)
-	http.HandleFunc("/api/callback", Callback)
-	http.Handle("/", http.FileServer(http.Dir("./static")))
-	http.ListenAndServe(":8080", nil)
+
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/api/sign-in", GetAuthRequest)
+	mux.HandleFunc("/api/callback", Callback)
+	mux.Handle("/", http.FileServer(http.Dir("./static")))
+
+	handler := cors.Default().Handler(mux)
+
+	http.ListenAndServe(":8080", handler)
+
+	// http.HandleFunc("/api/sign-in", GetAuthRequest)
+	// http.HandleFunc("/api/callback", Callback)
+	// http.Handle("/", http.FileServer(http.Dir("./static")))
+	// http.ListenAndServe(":8080", nil)
 }
 
 // Create a map to store the auth requests and their session IDs
@@ -44,6 +56,21 @@ func GetAuthRequest(w http.ResponseWriter, r *http.Request) {
 
 	request.ID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
 	request.ThreadID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
+
+	// Add request for a specific proof
+	// var mtpProofRequest protocol.ZeroKnowledgeProofRequest
+	// mtpProofRequest.ID = 1
+	// mtpProofRequest.CircuitID = string(circuits.AtomicQuerySigV2CircuitID)
+	// mtpProofRequest.Query = map[string]interface{}{
+	// 	"allowedIssuers": []string{"*"},
+	// 	"credentialSubject": map[string]interface{}{
+	// 		"birthday": map[string]interface{}{
+	// 			"$lt": 20000101,
+	// 		},
+	// 	},
+	// 	"context": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
+	// 	"type":    "KYCAgeCredential",
+	// }
 
 	// Add request for a specific proof
 	mtpProofRequest := proof.ProofRequest()
