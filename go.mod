@@ -4,9 +4,11 @@ go 1.21.4
 
 require (
 	github.com/ethereum/go-ethereum v1.13.8
+	github.com/go-chi/chi v1.5.5
 	github.com/iden3/go-circuits/v2 v2.0.0
 	github.com/iden3/go-iden3-auth/v2 v2.0.0
 	github.com/iden3/iden3comm/v2 v2.0.0
+	github.com/rs/cors v1.7.0
 )
 
 require (

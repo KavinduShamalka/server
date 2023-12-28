@@ -1,5 +1,6 @@
 const base_url = window.location.origin+window.location.pathname;
 
+console.log("Base url:", base_url)
 window.onload = () => {
     const qrBtnEl = document.querySelector('.btn-qr');
     const qrCodeEl = document.querySelector('#qrcode');
