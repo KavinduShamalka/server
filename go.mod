@@ -10,6 +10,16 @@ require (
 )
 
 require (
+	github.com/iden3/go-circuits v1.0.3 // indirect
+	github.com/iden3/go-iden3-core v1.0.2 // indirect
+	github.com/iden3/go-jwz v1.0.0 // indirect
+	github.com/iden3/go-rapidsnark/witness v0.0.6 // indirect
+	github.com/iden3/go-schema-processor v1.3.1 // indirect
+	github.com/iden3/iden3comm v1.1.0 // indirect
+	github.com/iden3/wasmer-go v0.0.1 // indirect
+)
+
+require (
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/benbjohnson/clock v1.3.5 // indirect
 	github.com/bits-and-blooms/bitset v1.10.0 // indirect
@@ -30,6 +40,7 @@ require (
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/holiman/uint256 v1.2.4 // indirect
 	github.com/iden3/contracts-abi/state/go/abi v1.0.0-beta.3 // indirect
+	github.com/iden3/go-iden3-auth v1.2.3
 	github.com/iden3/go-iden3-core/v2 v2.0.0 // indirect
 	github.com/iden3/go-iden3-crypto v0.0.15 // indirect
 	github.com/iden3/go-jwz/v2 v2.0.0 // indirect

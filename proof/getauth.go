@@ -1,4 +1,4 @@
-package main
+package proof
 
 import (
 	"encoding/json"
@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"server/proof"
 	"strconv"
 	"time"
 
@@ -18,13 +17,6 @@ import (
 	"github.com/iden3/go-iden3-auth/v2/state"
 	"github.com/iden3/iden3comm/v2/protocol"
 )
-
-func main() {
-	http.HandleFunc("/api/sign-in", GetAuthRequest)
-	http.HandleFunc("/api/callback", Callback)
-	http.Handle("/", http.FileServer(http.Dir("./static")))
-	http.ListenAndServe(":8080", nil)
-}
 
 // Create a map to store the auth requests and their session IDs
 var requestMap = make(map[string]interface{})
@@ -46,7 +38,7 @@ func GetAuthRequest(w http.ResponseWriter, r *http.Request) {
 	request.ThreadID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
 
 	// Add request for a specific proof
-	mtpProofRequest := proof.ProofRequest()
+	mtpProofRequest := ProofRequest()
 	request.Body.Scope = append(request.Body.Scope, mtpProofRequest)
 
 	// Store auth request in map associated with session ID
