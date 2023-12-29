@@ -7,6 +7,7 @@ require (
 	github.com/iden3/go-circuits/v2 v2.0.0
 	github.com/iden3/go-iden3-auth/v2 v2.0.0
 	github.com/iden3/iden3comm/v2 v2.0.0
+	github.com/rs/cors v1.7.0
 )
 
 require (

@@ -12,6 +12,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	auth "github.com/iden3/go-iden3-auth/v2"
+	"github.com/rs/cors"
 
 	"github.com/iden3/go-iden3-auth/v2/loaders"
 	"github.com/iden3/go-iden3-auth/v2/pubsignals"
@@ -20,10 +21,21 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/api/sign-in", GetAuthRequest)
-	http.HandleFunc("/api/callback", Callback)
-	http.Handle("/", http.FileServer(http.Dir("./static")))
-	http.ListenAndServe(":8080", nil)
+
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/api/sign-in", GetAuthRequest)
+	mux.HandleFunc("/api/callback", Callback)
+	mux.Handle("/", http.FileServer(http.Dir("./static")))
+
+	handler := cors.Default().Handler(mux)
+
+	http.ListenAndServe(":8080", handler)
+
+	// http.HandleFunc("/api/sign-in", GetAuthRequest)
+	// http.HandleFunc("/api/callback", Callback)
+	// http.Handle("/", http.FileServer(http.Dir("./static")))
+	// http.ListenAndServe(":8080", nil)
 }
 
 // Create a map to store the auth requests and their session IDs
