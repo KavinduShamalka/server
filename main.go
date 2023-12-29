@@ -32,7 +32,7 @@ var requestMap = make(map[string]interface{})
 func GetAuthRequest(w http.ResponseWriter, r *http.Request) {
 
 	// Audience is verifier id
-	rURL := "https://df8a-112-135-76-42.ngrok-free.app"
+	rURL := "https://702c-112-134-215-182.ngrok-free.app"
 	sessionID := 1
 	CallbackURL := "/api/callback"
 	Audience := "did:polygonid:polygon:mumbai:2qG7bhdJKsk4tSbShiXiF2Eti2cVjUH3iTDXyyn6i7"
@@ -44,21 +44,6 @@ func GetAuthRequest(w http.ResponseWriter, r *http.Request) {
 
 	request.ID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
 	request.ThreadID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
-
-	// Add request for a specific proof
-	// var mtpProofRequest protocol.ZeroKnowledgeProofRequest
-	// mtpProofRequest.ID = 1
-	// mtpProofRequest.CircuitID = string(circuits.AtomicQuerySigV2CircuitID)
-	// mtpProofRequest.Query = map[string]interface{}{
-	// 	"allowedIssuers": []string{"*"},
-	// 	"credentialSubject": map[string]interface{}{
-	// 		"birthday": map[string]interface{}{
-	// 			"$lt": 20000101,
-	// 		},
-	// 	},
-	// 	"context": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
-	// 	"type":    "KYCAgeCredential",
-	// }
 
 	// Add request for a specific proof
 	mtpProofRequest := proof.ProofRequest()
