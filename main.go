@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/google/uuid"
 	auth "github.com/iden3/go-iden3-auth/v2"
 	"github.com/patrickmn/go-cache"
 	"github.com/ugorji/go/codec"
@@ -54,13 +53,13 @@ func GetAuthRequest(w http.ResponseWriter, r *http.Request) {
 	// Generate request for basic authentication
 	var request protocol.AuthorizationRequestMessage = auth.CreateAuthorizationRequest("test flow", Audience, uri)
 
-	// request.ID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
-	// request.ThreadID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
+	request.ID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
+	request.ThreadID = "7f38a193-0918-4a48-9fac-36adfdb8b542"
 
 	// Add new request ID
-	request.ID = uuid.New().String()
-	// Add new thread ID
-	request.ThreadID = uuid.New().String()
+	// request.ID = uuid.New().String()
+	// // Add new thread ID
+	// request.ThreadID = uuid.New().String()
 
 	// Set user session tracker by passing sessionID, request, and defaultExpiration using cache
 	userSessionTracker.Set(sessionID, request, cache.DefaultExpiration)
@@ -105,7 +104,7 @@ func Callback(w http.ResponseWriter, r *http.Request) {
 	// get authRequest from userSessionTracker.Get() by passing the sId
 	authRequest, wasFound := userSessionTracker.Get(sessionID)
 	if !wasFound { // If auth request not found for the session  ID
-		fmt.Printf("auth request was not found for session ID: %s\n", sessionID)
+		fmt.Printf("Auth request was not found for session ID: %s\n", sessionID)
 		return
 	}
 
